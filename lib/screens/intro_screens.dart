@@ -96,26 +96,26 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   final int _numPages = 4;
   bool _showIntro = true;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _checkIfIntroShown();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    _checkIfIntroShown();
+  }
 
-  // Future<void> _checkIfIntroShown() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool showIntro = prefs.getBool('showIntro') ?? true;
+  Future<void> _checkIfIntroShown() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool showIntro = prefs.getBool('showIntro') ?? true;
 
-  //   if (showIntro) {
-  //     await prefs.setBool('showIntro', false);
-  //   }
+    if (showIntro) {
+      await prefs.setBool('showIntro', false);
+    }
 
-  //   setState(() {
-  //     _showIntro = showIntro;
-  //   });
+    setState(() {
+      _showIntro = showIntro;
+    });
 
-  //   log(_showIntro.toString());
-  // }
+    log(_showIntro.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
