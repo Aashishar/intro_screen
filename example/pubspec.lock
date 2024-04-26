@@ -99,9 +99,11 @@ packages:
   intro_screen:
     dependency: "direct main"
     description:
-      path: ".."
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: "0a6d555a828b031cd472dffd05974712306fee44"
+      url: "git@github.com:Aashishar/intro_screen.git"
+    source: git
     version: "0.0.1"
   leak_tracker:
     dependency: transitive

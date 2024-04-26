@@ -143,39 +143,41 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   }
 
   Widget buildPage(int index) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Align(
-          alignment: Alignment.centerRight,
-          child: TextButton(
-              onPressed: widget.onSkip,
-              child: const Text(
-                "Skip",
-                style: TextStyle(),
-              )),
-        ),
-        Container(
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10))),
-            child: Image.asset(widget.imageurl[index])),
-        Text(
-          widget.titles[index],
-          style: const TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+                onPressed: widget.onSkip,
+                child: const Text(
+                  "Skip",
+                  style: TextStyle(),
+                )),
           ),
-        ),
-        const SizedBox(height: 16),
-        Text(
-          widget.descriptions[index],
-          style: const TextStyle(
-            fontSize: 16,
+          Container(
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              child: Image.asset(widget.imageurl[index])),
+          Text(
+            widget.titles[index],
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          textAlign: TextAlign.center,
-        ),
-      ],
+          const SizedBox(height: 16),
+          Text(
+            widget.descriptions[index],
+            style: const TextStyle(
+              fontSize: 16,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 
