@@ -1,7 +1,10 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class IntroductionScreen extends StatefulWidget {
   /// this is the package for the introduction screen
@@ -93,47 +96,44 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   final int _numPages = 4;
   bool _showIntro = true;
 
-  @override
-  void initState() {
-    super.initState();
-    _checkIfIntroShown();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _checkIfIntroShown();
+  // }
 
-  Future<void> _checkIfIntroShown() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool showIntro = prefs.getBool('showIntro') ?? true;
+  // Future<void> _checkIfIntroShown() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   bool showIntro = prefs.getBool('showIntro') ?? true;
 
-    if (showIntro) {
-      await prefs.setBool('showIntro', false);
-    }
+  //   if (showIntro) {
+  //     await prefs.setBool('showIntro', false);
+  //   }
 
-    setState(() {
-      _showIntro = showIntro;
-    });
+  //   setState(() {
+  //     _showIntro = showIntro;
+  //   });
 
-    log(_showIntro.toString());
-  }
+  //   log(_showIntro.toString());
+  // }
 
   @override
   Widget build(BuildContext context) {
     if (_showIntro) {
       return Scaffold(
         body: SafeArea(
-            child: Stack(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            PageView.builder(
-                controller: _pageController,
-                onPageChanged: (int page) {
-                  setState(() {
-                    _currentPage = page;
-                  });
-                },
-                itemCount: _numPages,
-                itemBuilder: (BuildContext context, int index) {
-                  return buildPage(index);
-                }),
-            buildNavigationButtons(),
+            Expanded(child: buildPage(_currentPage)),
             buildPageIndicator(),
+            SizedBox(
+              height: 40,
+            ),
+            buildNavigationButtons(),
+            SizedBox(
+              height: 100,
+            )
           ],
         )),
       );
@@ -143,53 +143,68 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
   }
 
   Widget buildPage(int index) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: TextButton(
-                onPressed: widget.onSkip,
-                child: const Text(
-                  "Skip",
-                  style: TextStyle(),
-                )),
-          ),
-          Container(
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              child: Image.asset(widget.imageurl[index])),
-          Text(
-            widget.titles[index],
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 16),
-          Text(
-            widget.descriptions[index],
-            style: const TextStyle(
-              fontSize: 16,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
+    return PageView.builder(
+        controller: _pageController,
+        onPageChanged: (int page) {
+          setState(() {
+            _currentPage = page;
+          });
+        },
+        itemCount: _numPages,
+        itemBuilder: (BuildContext context, int index) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                    onPressed: widget.onSkip,
+                    child: Text(
+                      "Skip",
+                      style: GoogleFonts.urbanist(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: widget.buttoncolor,
+                      ),
+                    )),
+              ),
+              Container(
+                  height: 500,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Image.asset(widget.imageurl[index])),
+              Text(
+                widget.titles[index],
+                style: GoogleFonts.urbanist(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                widget.descriptions[index],
+                style: GoogleFonts.urbanist(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.grey[600],
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 40,
+              ),
+            ],
+          );
+        });
   }
 
   Widget buildPageIndicator() {
     return Align(
       alignment: Alignment.bottomCenter,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 200),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: _buildPageIndicatorItems(),
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: _buildPageIndicatorItems(),
       ),
     );
   }
@@ -200,12 +215,12 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
     for (int i = 0; i < _numPages; i++) {
       indicators.add(
         Container(
-          width: 8,
+          width: 25,
           height: 8,
           margin: const EdgeInsets.symmetric(horizontal: 4),
           decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: _currentPage == i ? Colors.blue : Colors.grey,
+            borderRadius: BorderRadius.circular(10),
+            color: _currentPage == i ? widget.buttoncolor : Colors.grey,
           ),
         ),
       );
@@ -244,18 +259,19 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               },
               child: Container(
                   height: 50,
-                  width: 280,
+                  width: 220,
                   decoration: BoxDecoration(
                       shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(40),
                       color: widget.buttoncolor),
                   alignment: Alignment.center,
-                  child: const Text(
+                  child: Text(
                     "Next",
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                    style: GoogleFonts.urbanist(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   )),
             )
           else
@@ -263,18 +279,19 @@ class _IntroductionScreenState extends State<IntroductionScreen> {
               onTap: widget.onGetStarted,
               child: Container(
                   height: 50,
-                  width: 240,
+                  width: 220,
                   decoration: BoxDecoration(
                       shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(40),
                       color: widget.buttoncolor),
                   alignment: Alignment.center,
-                  child: const Text(
+                  child: Text(
                     "Get Started",
-                    style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                    style: GoogleFonts.urbanist(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
                   )),
             )
         ],

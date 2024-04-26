@@ -36,9 +36,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   intro_screen: 
-    git:
-      url: git@github.com:Aashishar/intro_screen.git
-      ref: main
+    path: ../
 
 dev_dependencies:
   flutter_test:

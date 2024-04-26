@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: IntroductionScreen(
-        buttoncolor: Colors.blueGrey,
+        buttoncolor: const Color.fromARGB(255, 51, 94, 247),
         onGetStarted: () => log("Get Started"),
         onSkip: () => log("Skip"),
         introShownWidget:
