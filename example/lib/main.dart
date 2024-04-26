@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
         buttoncolor: const Color.fromARGB(255, 51, 94, 247),
         onGetStarted: () => log("Get Started"),
         onSkip: () => log("Skip"),
+        context: context,
         introShownWidget:
             Scaffold(body: Center(child: const Text("Intro already shown"))),
         imageurl: [

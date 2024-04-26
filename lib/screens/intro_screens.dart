@@ -33,6 +33,7 @@ class IntroductionScreen extends StatefulWidget {
     this.onGetStarted,
     this.onSkip,
     required this.introShownWidget,
+    required this.context,
   });
 
   /// the list of images for the pages
@@ -85,6 +86,8 @@ class IntroductionScreen extends StatefulWidget {
   /// example: () => print("Intro shown") or navigate to another screen or else
   ///
   final Widget introShownWidget;
+
+  final BuildContext context;
 
   @override
   State<IntroductionScreen> createState() => _IntroductionScreenState();
