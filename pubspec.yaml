@@ -1,7 +1,7 @@
 name: intro_screen
 description: "A new Flutter package project."
 version: 1.0.0
-homepage:
+homepage: https://github.com/Aashishar/intro_screen/blob/main/README.md
 
 environment:
   sdk: '>=3.3.3 <4.0.0'
