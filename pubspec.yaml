@@ -1,6 +1,6 @@
 name: custom_intro_screen
 description: "A Flutter package that provides customizable intro screens for your app, helping users understand the core features and functionalities with engaging visual content."
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/Aashishar/intro_screen/blob/main/README.md
 
 environment:
